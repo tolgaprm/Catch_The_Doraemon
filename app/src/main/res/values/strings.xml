@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name"> Catch The Doraemon </string>
+    <string name="time"> Time: %s</string>
+    <string name="score">Score: %s</string>
+</resources>
