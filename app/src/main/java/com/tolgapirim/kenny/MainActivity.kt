@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity() {
 
                 handler.removeCallbacks(runnable)
 
+                for (image in imageList){
+                    image.visibility = View.INVISIBLE
+                }
+
                 val alert = AlertDialog.Builder(this@MainActivity)
                     .setTitle("Time's Up! ")
                     .setMessage("Restart The Game?")
@@ -81,9 +85,12 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-            rastgeleSayi = (0..9).random()
+            rastgeleSayi = (0..8).random()
 
             imageList[rastgeleSayi].visibility = View.VISIBLE
+
+
+
 
         }
 
