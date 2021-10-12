@@ -14,9 +14,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
     private lateinit var runnable: Runnable
-    private lateinit var handle:Handler
+    private lateinit var handler:Handler
     private var score:Int=0
     private var rastgeleSayi:Int=0
+    private val imageList = arrayListOf<ImageView>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,21 +25,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        imageList.add(binding.imageView1)
+        imageList.add(binding.imageView2)
+        imageList.add(binding.imageView3)
+        imageList.add(binding.imageView4)
+        imageList.add(binding.imageView5)
+        imageList.add(binding.imageView6)
+        imageList.add(binding.imageView7)
+        imageList.add(binding.imageView8)
+        imageList.add(binding.imageView9)
 
 
 
-        handle = Handler(Looper.myLooper()!!)
+        handler = Handler(Looper.myLooper()!!)
 
         object :CountDownTimer(15000,1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.time.text= getString(R.string.time,("${millisUntilFinished/1000}"))
-                image()
+                hideImage()
             }
 
             override fun onFinish() {
                 // alert mesajı
 
-                handle.removeCallbacks(runnable)
+                handler.removeCallbacks(runnable)
 
                 val alert = AlertDialog.Builder(this@MainActivity)
                     .setTitle("Time's Up! ")
@@ -61,7 +71,29 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun image(){
+
+    // BU ise resmi gizlemek ve göstermek için yazdığım yeni fonksion
+    private fun hideImage(){
+
+        runnable = Runnable {
+            for (image in imageList){
+                image.visibility = View.INVISIBLE
+            }
+
+
+            rastgeleSayi = (0..9).random()
+
+            imageList[rastgeleSayi].visibility = View.VISIBLE
+
+        }
+
+        handler.post(runnable)
+
+    }
+
+
+    // ilk başta resim gizlemek ve bir resmi gösterek için kullndığım fonksiyonlar
+  /*  private fun image(){
 
 
         runnable = Runnable {
@@ -80,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        handle.post(runnable)
+        handler.post(runnable)
     }
 
 
@@ -172,7 +204,7 @@ class MainActivity : AppCompatActivity() {
             binding.imageView2.visibility = View.INVISIBLE
         }
 
-    }
+    }*/
 
 
     fun increaseScore(view:View){
